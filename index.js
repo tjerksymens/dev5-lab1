@@ -6,6 +6,18 @@ const inference = new HfInference(HF_ACCESS_TOKEN);
 
 const audio = document.querySelector("#audio");
 
+//function to play the audio
+function playAudio() {
+  audio.src = "jay-z-ai.mp3"
+  audio.play();
+  console.log("playing audio");
+};
+
+//function to stop the audio
+function stopAudio() {
+  audio.pause();
+};
+
 // initialize Speechrecognition for webkit bowsers, prefix
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -46,6 +58,16 @@ recognition.onresult = function (event) {
 
   // update DOM
   document.querySelector("#commando").innerHTML = recognizedSpeech;
+
+  // Check if the reconizedSpeech is 'play audio'
+  if (recognizedSpeech === "play audio") {
+    playAudio();
+  }
+
+  // Check if the reconizedSpeech is 'stop audio'
+  if (recognizedSpeech === "stop audio") {
+    stopAudio();
+  }
 };
 
 // the function that makes images
